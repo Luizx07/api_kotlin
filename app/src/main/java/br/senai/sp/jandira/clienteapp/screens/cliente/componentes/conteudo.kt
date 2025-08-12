@@ -18,14 +18,34 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import br.senai.sp.jandira.clienteapp.model.cliente
+import br.senai.sp.jandira.clienteapp.service.Conexao
 import br.senai.sp.jandira.clienteapp.ui.theme.ClienteAppTheme
+import kotlinx.coroutines.Dispatchers
+import retrofit2.await
 
 @Composable
 fun  Conteudo(paddingValues: PaddingValues){
+
+    val clienteApi = Conexao().getClienteService()
+
+    var clientes by remember {
+        mutableStateOf(listOf<cliente>())
+    }
+
+    LaunchedEffect(Dispatchers.IO) {
+        clientes = clienteApi.listarTodos().await()
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,7 +68,7 @@ fun  Conteudo(paddingValues: PaddingValues){
         )
     }
         LazyColumn {
-            items(10){
+            items(clientes){ cliente ->
                 Card(
                     modifier = Modifier
                         .padding(
@@ -66,8 +86,8 @@ fun  Conteudo(paddingValues: PaddingValues){
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column {
-                            Text(text = "Nome do Cliente")
-                            Text(text = "email@do.cliente")
+                            Text(text = cliente.nome)
+                            Text(text = cliente.email)
                         }
                         Icon(
                             imageVector = Icons.Default.Delete,
