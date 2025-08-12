@@ -1,31 +1,30 @@
 package br.senai.sp.jandira.clienteapp.screens.cliente.componentes
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.PointerIcon.Companion.Text
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.clienteapp.ui.theme.ClienteAppTheme
 
 @Composable
-fun BarraInferior(modifier: Modifier = Modifier) { //barra inferior
+fun BarraInferior(controleNavegacao: NavHostController?) { //barra inferior
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.primary, //mudar a cor
         contentColor = MaterialTheme.colorScheme.primary //mudar a cor
     ) { //composta por itens de barra de navigacao
         NavigationBarItem(
             selected = false,
-            onClick = {},
+            onClick = {
+                controleNavegacao!!.navigate("conteudo")
+            },
             icon = {
                 Icon(
                     imageVector = Icons.Default.Home,
@@ -55,16 +54,18 @@ fun BarraInferior(modifier: Modifier = Modifier) { //barra inferior
         )
         NavigationBarItem(
             selected = false,
-            onClick = {},
+            onClick = {
+                controleNavegacao!!.navigate("cadastro")
+            },
             icon = {
                 Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = "Menu",
+                    imageVector = Icons.Default.AddCircle,
+                    contentDescription = "novo",
                     tint = MaterialTheme.colorScheme.onPrimary
                 )
             },
             label = { //texto para o icon
-                Text(text = "Menu",
+                Text(text = "novo cliente",
                     color = MaterialTheme.colorScheme.onPrimary)
             }
         )
@@ -75,6 +76,6 @@ fun BarraInferior(modifier: Modifier = Modifier) { //barra inferior
 @Composable
 private fun BarraInferiorPreview(){
     ClienteAppTheme {
-        BarraInferior()
+        BarraInferior(null)
     }
 }
