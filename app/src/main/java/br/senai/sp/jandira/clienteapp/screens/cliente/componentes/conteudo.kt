@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -89,10 +90,14 @@ fun  Conteudo(paddingValues: PaddingValues){
                             Text(text = cliente.nome)
                             Text(text = cliente.email)
                         }
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = "delete"
-                        )
+                        IconButton(
+                            onClick = {}
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "delete"
+                            )
+                        }
                     }
                 }
             }
